@@ -1,0 +1,151 @@
+/*Stylesheet by Kerry C. McAlister, 2018 */
+
+
+#map {
+    height: 100vh;
+    width: 100%;
+    display: inline-block;
+    align-items: center;
+}
+body {
+    background-color: #bf5700;
+}
+
+#Layer_1{
+    position: relative;
+    z-index: 1000;
+}
+
+.legend-circle{
+    
+    width: 180px;
+    height: 180px;
+}
+
+#panel {
+    vertical-align: top;
+    width: auto;
+    background-color:#bf5700;
+    opacity: .9;
+    border-radius: 2px;
+    position: absolute;
+    padding: 10px;
+    top: 12px;
+    right:0;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    
+}
+
+
+.leaflet-control-layers {
+    position: absolute;
+    background-color: rgba(255,255,255,0.8);
+    fill-opacity: 0.8;
+    border-radius: 0;
+    outline: solid gray 1px;
+}
+
+
+
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+    border-radius: 0px;
+	}
+.leaflet-control-zoom-out {
+	font-size: 20px;
+    border-radius: 0px;
+	}
+
+h1{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+}
+
+.sequence-control-container{
+    bottom: 0;
+    width: 350px;
+    height: 30px;
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px;
+    line-height: 45px; 
+    text-align: center;
+    border: solid gray 1px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+.timestamp-container {
+    top:260px;
+    width: 100px;
+    height: 30px;
+    background-color: rgba(255,255,255,0.8);
+    padding-bottom: 15px;
+    line-height: 45px; 
+    text-align: center;
+    border: solid gray 1px;
+    font-size: 16px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+.range-slider{
+    height: auto;
+    width: 200px;
+    
+}
+
+.legend-control-container{
+    width: 100 px;
+    height: 30 px;
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px;
+    line-height: 45px; 
+    text-align: center;
+    border: solid gray 1px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+/*#temporal-legend{
+    position: relative;
+    height: auto;
+    width: auto;
+}*/
+
+/*#label{
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    font-size: 14px;
+}*/
+
+/*#detail{
+    position: absolute;
+    bottom: 0px;
+    right: 70px;
+    font-size: 14px;
+}*/
+
+
+#reverse{
+    float: left;
+    
+}
+
+#forward{
+    float: right;
+}
+
+
+
+.leaflet-popup-content p {
+	margin: 0.2em 0;
+	}
+
+.leaflet-control-attribution{
+    font-size: 7px;
+}
