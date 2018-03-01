@@ -304,7 +304,7 @@ function updateLegend(mymap, attributes){
             r: radius
         });
 
-        $('#'+key+'-text').text(Math.round(circleValues[key])/1000000 + " million");
+        $('#'+key+'-text').text(Math.round(circleValues[key]) + " People");
     };
 
 
@@ -336,11 +336,6 @@ function getCircleValues(mymap, attributes){
         min: min
     };
 
-    /*for (var circle in circles){
-        svg += '<circle class="legend-circle" id="' + circle + '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="30"/>';
-
-        svg += '<text id="' + circle + '-text" x="65" y="' + circles[circle] + '"></text>';
-    };*/
 };
 
 function processPolyData(data){
