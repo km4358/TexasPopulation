@@ -12,8 +12,9 @@ body {
 }
 
 
-
-
+#attribute-legend{
+    text-align: center;
+}
 #temporal-legend{
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -98,12 +99,12 @@ h1{
 }
 
 .legend-control-container{
-    width: 100 px;
-    height: 30 px;
+    width: auto;
+    height: max-content ;
     background-color: rgba(255,255,255,0.8);
     padding: 10px;
-    line-height: 45px; 
-    text-align: center;
+    line-height: auto;
+    /*text-align: center;*/
     border: solid gray 1px;
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }

@@ -207,6 +207,7 @@ function updatePropSymbols(mymap, attribute, updateLegend){
             
 
             popup.bindToLayer();
+            
  
         };
 
@@ -258,25 +259,24 @@ function createLegend(mymap, attributes){
         onAdd: function (mymap) {
 
             var legendContainer = L.DomUtil.create('div', 'legend-control-container');
+            var svg = '<svg id="attribute-legend" width="250px" height="125px">';
+            var circles = {
+                max: 50,
+                mean: 80,
+                min: 110
+            };
 
-            $(legendContainer).append('<div id="temporal-legend">')
+            for (var circle in circles){
 
+                svg += svg += '<circle class="legend-circle" id="' + circle +
+                '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="60"/>';
 
-
-            var svg = '<svg id="attribute-legend" width="160px" height="60px">';
-
-            var circles = ["max", "mean", "min"];
-
-            for (var i=0; i<circles.length; i++){
-
-                svg += '<circle class="legend-circle" id="' + circles[i] +
-                '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="30"/>';
-
-                svg += '<text id="' + circles[i] + '-text" x="65" y="60"></text>';
+                svg += '<text id="' + circle + '-text" x="120" y="' + circles[circle] + '"></text>';
             };
 
             svg += "</svg>"
 
+            $(legendContainer).append('<div id="temporal-legend">');
             $(legendContainer).append(svg);
 
             return legendContainer;
@@ -304,11 +304,13 @@ function updateLegend(mymap, attributes){
         var radius = calcPropRadius(circleValues[key]);
 
         $('#'+key).attr({
-            cy: 59 - radius,
+            
+            cy: 120 - radius,
+
             r: radius
         });
 
-        $('#'+key+'-text').text(Math.round(circleValues[key]*100)/100 + " million");
+        $('#'+key+'-text').text(Math.round(circleValues[key])/1000000 + " million");
     };
 
 
@@ -335,16 +337,16 @@ function getCircleValues(mymap, attributes){
     var mean = (max + min)/2;
 
     return {
-        max: 20,
-        mean: 40,
-        min: 60
+        max: max,
+        mean: mean,
+        min: min
     };
 
-    for (var circle in circles){
+    /*for (var circle in circles){
         svg += '<circle class="legend-circle" id="' + circle + '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="30"/>';
 
         svg += '<text id="' + circle + '-text" x="65" y="' + circles[circle] + '"></text>';
-    };
+    };*/
 };
 
 //Collect data from geoJSON
