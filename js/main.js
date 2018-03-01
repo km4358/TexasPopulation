@@ -277,14 +277,14 @@ function createLegend(mymap, properties, attributes){
 
 
 
-            var svg = '<svg id="attribute-legend" width="180px" height="180px">';
+            var svg = '<svg id="attribute-legend" width="160px" height="60px">';
 
             var circles = ["max", "mean", "min"];
 
             for (var i=0; i<circles.length; i++){
 
                 svg += '<circle class="legend-circle" id="' + circles[i] +
-                '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="90"/>';
+                '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="30"/>';
             };
 
             svg += "</svg>";
@@ -300,13 +300,51 @@ function createLegend(mymap, properties, attributes){
     
 };
 
-function updateLegend(mymap, properties, attributes){
-    var year = attributes.split("_")[1];
+function updateLegend(mymap, attribute){
+    var year = attribute.split("_")[1];
     var content = "Population in: " + year;
 
     $('#temporal-legend').html(content);
 
+    var circleValues = getCircleValues(mymap, attribute)
 
+    for(var key in circleValues){
+        var radius = calcPropRadius(circleValues[key]);
+
+        $('#'+key).attr({
+            cy: 59 - radius,
+            r: radius
+        });
+    };
+
+
+};
+
+function getCircleValues(mymap, attributes){
+    var min = Infinity,
+        max = -Infinity;
+
+    mymap.eachLayer(function(layer){
+        if(layer.feature){
+            var attributeValue = Number(layer.feature.properties[attribute]);
+
+            if (attributeValue < min){
+                min = attributeValue;
+            };
+
+            if (attributeValue > max){
+                max = attributeValue;
+            };
+        };
+    });
+
+    var mean = (max + min)/2;
+
+    return {
+        max:max,
+        mean:mean,
+        min:min
+    };
 };
 
 //Collect data from geoJSON
