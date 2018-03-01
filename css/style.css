@@ -10,6 +10,7 @@
     display: inline-block;
     align-items: center;
 }
+
 body {
     background-color: #bf5700;
 }
@@ -63,11 +64,9 @@ h1{
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
-
 .range-slider{
     height: auto;
-    width: 200px;
-    
+    width: 200px; 
 }
 
 .legend-control-container{
@@ -82,14 +81,12 @@ h1{
 }
 
 #reverse{
-    float: left;
-    
+    float: left;    
 }
 
 #forward{
     float: right;
 }
-
 
 .leaflet-popup-content p {
     font-family: 'Aller';
