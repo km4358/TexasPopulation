@@ -87,23 +87,6 @@ function createPolySymbols(data, mymap, polyAttributes){
     }).addTo(mymap);
 };
 
-/*function polyColor(perc) {
-    return perc > 25 ? '#800026' :
-           perc > 20  ? '#BD0026' :
-           perc > 15  ? '#E31A1C' :
-           perc > 10  ? '#FC4E2A' :
-           perc > 5   ? '#FD8D3C' :
-           perc > 0   ? '#FEB24C' :
-           perc < 0   ? '#FED976' :
-                      '#FFEDA0';
-};*/
-
-/*function polyStyle(polyFeature) {
-    return {
-        fillColor: polyColor(polyFeature.polyProperties.)
-    }
-}*/
-
 //Create sequence controls
 function createSequenceControls(mymap, attributes){
 
@@ -142,6 +125,10 @@ function createSequenceControls(mymap, attributes){
         step: 1
     });
 
+    createLegend(mymap, attributes[1]);
+    updateLegend(mymap, attributes[0]);
+
+
     
     $('#reverse').html('<img src="img/if_arrow-left.png">');
     $('#forward').html('<img src="img/if_arrow-right.png">');
@@ -163,8 +150,12 @@ function createSequenceControls(mymap, attributes){
         $('.range-slider').val(index);
 
         updatePropSymbols(mymap, attributes[index]);
+        updateLegend(mymap, attributes[index]);
+        
 
     });
+
+    
 
     
 
@@ -173,8 +164,12 @@ function createSequenceControls(mymap, attributes){
         var index = $(this).val();
 
         updatePropSymbols(mymap, attributes[index]);
+        updateLegend(mymap, attributes);
+        
 
     });
+
+    
 
     
 };             
@@ -197,25 +192,8 @@ function processData(data){
     return attributes;
 };
 
-function processPolyData(data){
-    var polyAttributes = [];
-
-    var polyProperties = data.features[0].polyProperties;
-
-    for (var attribute in polyProperties){
-
-        if (attribute.indexOf("Perc") > -1){
-            polyAttributes.push(attribute);
-        };
-    };
-
-    console.log(polyAttributes);
-
-    return polyAttributes;
-};
-
 //Update proportional symbology
-function updatePropSymbols(mymap, attribute){
+function updatePropSymbols(mymap, attribute, updateLegend){
     mymap.eachLayer(function(layer){
         if (layer.feature && layer.feature.properties[attribute]){
 
@@ -226,10 +204,16 @@ function updatePropSymbols(mymap, attribute){
 
             var popup = new Popup(props, attribute, layer, radius);
 
+            
+
             popup.bindToLayer();
  
         };
+
+
     });
+
+    
 };
 
 //Create popup function for points
@@ -260,12 +244,14 @@ function createPopup(properties, attribute, layer, radius){
         offset: new L.Point(0, -radius)
     });
 
+    
+
 };
 
 //Create temporal legend ON HOLD
-function createLegend(mymap, properties, attributes){
-    var legendControl = L.Control.extend({
-        geoJsonMarkerOptions: {
+function createLegend(mymap, attributes){
+    var LegendControl = L.Control.extend({
+        options: {
             position: 'bottomright'
         },
 
@@ -285,9 +271,11 @@ function createLegend(mymap, properties, attributes){
 
                 svg += '<circle class="legend-circle" id="' + circles[i] +
                 '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="30"/>';
+
+                svg += '<text id="' + circles[i] + '-text" x="65" y="60"></text>';
             };
 
-            svg += "</svg>";
+            svg += "</svg>"
 
             $(legendContainer).append(svg);
 
@@ -295,18 +283,22 @@ function createLegend(mymap, properties, attributes){
         }
     });
 
-    mymap.addControl(new legendControl());
+    mymap.addControl(new LegendControl());
+    updateLegend(mymap, attributes);
+
 
     
 };
 
-function updateLegend(mymap, attribute){
-    var year = attribute.split("_")[1];
-    var content = "Population in: " + year;
+function updateLegend(mymap, attributes){
+    
+    var year = attributes.split("_")[1];
+
+    var content = "<p><b>Population in " + year + "</b> ";
 
     $('#temporal-legend').html(content);
 
-    var circleValues = getCircleValues(mymap, attribute)
+    var circleValues = getCircleValues(mymap, attributes)
 
     for(var key in circleValues){
         var radius = calcPropRadius(circleValues[key]);
@@ -315,6 +307,8 @@ function updateLegend(mymap, attribute){
             cy: 59 - radius,
             r: radius
         });
+
+        $('#'+key+'-text').text(Math.round(circleValues[key]*100)/100 + " million");
     };
 
 
@@ -326,7 +320,7 @@ function getCircleValues(mymap, attributes){
 
     mymap.eachLayer(function(layer){
         if(layer.feature){
-            var attributeValue = Number(layer.feature.properties[attribute]);
+            var attributeValue = Number(layer.feature.properties[attributes]);
 
             if (attributeValue < min){
                 min = attributeValue;
@@ -341,9 +335,15 @@ function getCircleValues(mymap, attributes){
     var mean = (max + min)/2;
 
     return {
-        max:max,
-        mean:mean,
-        min:min
+        max: 20,
+        mean: 40,
+        min: 60
+    };
+
+    for (var circle in circles){
+        svg += '<circle class="legend-circle" id="' + circle + '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="30"/>';
+
+        svg += '<text id="' + circle + '-text" x="65" y="' + circles[circle] + '"></text>';
     };
 };
 
@@ -352,7 +352,7 @@ function getData(mymap){
 
     
 
-    $.ajax("data/MSA_Poly.geojson", {
+    /*$.ajax("data/MSA_Poly.geojson", {
         dataType: "json",
         success: function(response){
             var polyAttributes = processPolyData(response);
@@ -361,7 +361,7 @@ function getData(mymap){
 
 
         }
-    });
+    });*/
 
     $.ajax("data/MSA.geojson", {
         dataType: "json",
@@ -371,7 +371,7 @@ function getData(mymap){
 
             createPropSymbols(response, mymap, attributes);
             createSequenceControls(mymap, attributes);
-            createLegend(mymap, attributes);
+            
         }        
     });
 };

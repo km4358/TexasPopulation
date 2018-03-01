@@ -11,15 +11,13 @@ body {
     background-color: #bf5700;
 }
 
-#Layer_1{
-    position: relative;
-    z-index: 1000;
-}
 
-.legend-circle{
-    
-    width: 180px;
-    height: 180px;
+
+
+#temporal-legend{
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
 }
 
 #panel {
@@ -110,11 +108,7 @@ h1{
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
-/*#temporal-legend{
-    position: relative;
-    height: auto;
-    width: auto;
-}*/
+
 
 /*#label{
     position: absolute;
