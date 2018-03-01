@@ -11,7 +11,6 @@ function createMap(){
     tileLayer.addTo(mymap);   
     
     getData(mymap);
-
 };
 
 //Create marker and load attributes into popup window
@@ -27,7 +26,8 @@ function pointToLayer(feature, latlng, attributes){
         color: "#000",
         weight: 1,
         opacity: 1,
-        fillOpacity: 0.8
+        fillOpacity: 0.8,
+        
     };
 
     var attValue = Number(feature.properties[attribute]);
@@ -74,15 +74,6 @@ function createPropSymbols(data, mymap, attributes){
     L.geoJson(data, {
         pointToLayer: function(feature, latlng){
             return pointToLayer(feature, latlng, attributes);
-        }
-    }).addTo(mymap);
-};
-
-function createPolySymbols(data, mymap, polyAttributes){
-
-    L.geoJson(data, {
-        pointToLayer: function(feature, latlng){
-            return pointToLayer(feature, latlng, polyAttributes);
         }
     }).addTo(mymap);
 };
@@ -242,8 +233,11 @@ function createPopup(properties, attribute, layer, radius){
     popupContent += "<p><b>Population in " + year + ":</b> " + properties[attribute];
 
     layer.bindPopup(popupContent, {
-        offset: new L.Point(0, -radius)
+        offset: new L.Point(0, -radius),
+        
     });
+
+    
 
     
 
@@ -349,21 +343,58 @@ function getCircleValues(mymap, attributes){
     };*/
 };
 
+function processPolyData(data){
+    var polyAttributes = [];
+
+    var polyProperties = data.features[0].polyProperties;
+
+    for (var polyAttribute in polyProperties){
+        if (polyAttribute.indexOf("Perc")> -1){
+            polyAttributes.push(polyAttribute);
+        };
+    };
+
+    return polyAttributes
+};
+
+function createPolySymbols(data, mymap, polyAttributes){
+    L.geoJson(data, {
+        });
+
+    var counties = L.geoJson(data, {
+        fillColor: "#bf5700",
+        color: "#000",
+        weight: 1,
+        opacity: 0.5,
+        fillOpacity: 0.2
+
+    
+        
+    });
+
+    var overlay = {
+        "MSA Boundaries": counties
+    };
+
+    L.control.layers(null, overlay,{collapsed:false}).addTo(mymap);
+    return mymap
+
+};
+
 //Collect data from geoJSON
 function getData(mymap){
 
     
 
-    /*$.ajax("data/MSA_Poly.geojson", {
+    $.ajax("data/MSA_Poly.geojson", {
         dataType: "json",
         success: function(response){
+
             var polyAttributes = processPolyData(response);
-
             createPolySymbols(response, mymap, polyAttributes);
-
-
+            
         }
-    });*/
+    });
 
     $.ajax("data/MSA.geojson", {
         dataType: "json",
