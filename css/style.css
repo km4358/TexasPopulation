@@ -1,7 +1,7 @@
 /*Stylesheet by Kerry C. McAlister, 2018 */
 @font-face {
     font-family: 'Aller';
-    src: url("/leaflet-lab/fonts/Aller_Bd.ttf");
+    src: url("/leaflet-lab/fonts");
 }
 
 #map {
@@ -14,32 +14,16 @@ body {
     background-color: #bf5700;
 }
 
-
 #attribute-legend{
     text-align: center;
+    font-family: 'Aller';
+    font-size: 15px;
 }
 #temporal-legend{
     text-align: center;
     font-family: "Aller";
-    font-size: 15px;
+    font-size: 25px;
 }
-
-#panel {
-    vertical-align: top;
-    width: auto;
-    background-color:#bf5700;
-    opacity: .9;
-    border-radius: 2px;
-    position: absolute;
-    padding: 10px;
-    top: 12px;
-    right:0;
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    
-}
-
 
 .leaflet-control-layers {
     position: absolute;
@@ -49,12 +33,9 @@ body {
     outline: solid gray 1px;
 }
 
-
-
-
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-	font: bold 18px 'Lucida Console', Monaco, monospace;
+	font: bold 18px 'Aller';
 	text-indent: 1px;
     border-radius: 0px;
 	}
@@ -82,18 +63,6 @@ h1{
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
-.timestamp-container {
-    top:260px;
-    width: 100px;
-    height: 30px;
-    background-color: rgba(255,255,255,0.8);
-    padding-bottom: 15px;
-    line-height: 45px; 
-    text-align: center;
-    border: solid gray 1px;
-    font-size: 16px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-}
 
 .range-slider{
     height: auto;
@@ -112,23 +81,6 @@ h1{
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
-
-
-/*#label{
-    position: absolute;
-    bottom: 20px;
-    right: 10px;
-    font-size: 14px;
-}*/
-
-/*#detail{
-    position: absolute;
-    bottom: 0px;
-    right: 70px;
-    font-size: 14px;
-}*/
-
-
 #reverse{
     float: left;
     
@@ -139,11 +91,12 @@ h1{
 }
 
 
-
 .leaflet-popup-content p {
+    font-family: 'Aller';
 	margin: 0.2em 0;
 	}
 
 .leaflet-control-attribution{
+    font-family: 'Aller';
     font-size: 7px;
 }
