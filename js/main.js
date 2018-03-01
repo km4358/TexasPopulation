@@ -5,7 +5,7 @@ function createMap(){
     var mymap = L.map('map').setView([31.296, -98.926],6);
 
     var tileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/kmcalister/cjdrsecns00yg2rs4awoet3c8/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia21jYWxpc3RlciIsImEiOiJjaXNkbW9lM20wMDZ1Mm52b3p3cDJ0NjE0In0.KyQ5znmrXLsxaPk6y-fn0A', {
-        attribution: 'Imagery: <a href="mapbox://styles/kmcalister/cjdrsecns00yg2rs4awoet3c8">Mapbox</a>'
+        attribution: 'Data: <a href="https://www.dshs.texas.gov/chs/popdat/downloads.shtm">Texas Department of State Health Services</a>, Site Design © Kerry C. McAlister, 2018; Imagery: <a href="mapbox://styles/kmcalister/cjdrsecns00yg2rs4awoet3c8">Mapbox</a>'
         });
 
     tileLayer.addTo(mymap);   
