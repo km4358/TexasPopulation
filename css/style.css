@@ -1,9 +1,4 @@
 /*Stylesheet by Kerry C. McAlister, 2018 */
-@font-face {
-    font-family: "Aller";
-    src: url("\leaflet-lab\fonts");
-    
-}
 
 #map {
     height: 100vh;
@@ -19,12 +14,12 @@ body, html {
 
 #attribute-legend{
     text-align: center;
-    font-family: 'Aller';
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 15px;
 }
 #temporal-legend{
     text-align: center;
-    font-family: "Aller";
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 25px;
 }
 
@@ -38,7 +33,8 @@ body, html {
 
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-	font: bold 18px 'Aller';
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font: bold 18px;
 	text-indent: 1px;
     border-radius: 0px;
 	}
@@ -48,7 +44,7 @@ body, html {
 	}
 
 h1{
-    font-family: "Aller";
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 700;
     text-align: center;
     color: white;
@@ -91,11 +87,11 @@ h1{
 }
 
 .leaflet-popup-content p {
-    font-family: 'Aller';
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	margin: 0.2em 0;
 	}
 
 .leaflet-control-attribution{
-    font-family: 'Aller';
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 7px;
 }
