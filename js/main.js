@@ -1,15 +1,17 @@
 /* Main JS by Kerry C. McAlister, 2018 */
-//Part 1: Create Leaflet base map
+
+
+// Create Leaflet base map
 function createMap(){
-
+    //set map variable and view
     var mymap = L.map('map').setView([31.296, -98.926],6);
-
+    //set tile layer source and attributes
     var tileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/kmcalister/cjdrsecns00yg2rs4awoet3c8/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia21jYWxpc3RlciIsImEiOiJjaXNkbW9lM20wMDZ1Mm52b3p3cDJ0NjE0In0.KyQ5znmrXLsxaPk6y-fn0A', {
         attribution: 'Data: <a href="https://www.dshs.texas.gov/chs/popdat/downloads.shtm">Texas Department of State Health Services</a>, Site Design © Kerry C. McAlister, 2018; Imagery: <a href="mapbox://styles/kmcalister/cjdrsecns00yg2rs4awoet3c8">Mapbox</a>'
         });
-
+    //add tile layer to map    
     tileLayer.addTo(mymap);   
-    
+    //call for geoJSON data to be added - function is later in code
     getData(mymap);
 };
 
@@ -17,42 +19,39 @@ function createMap(){
 function pointToLayer(feature, latlng, attributes){
     var attribute = attributes[0];
 
-    //console.log(attribute);
-
     //Marker options below...
     var geoJsonMarkerOptions = {
-        //radius: 8,
         fillColor: "#bf5700",
         color: "#000",
         weight: 1,
         opacity: 1,
-        fillOpacity: 0.8,
-        
+        fillOpacity: 0.8
+               
     };
-
+    //set attribute value variable
     var attValue = Number(feature.properties[attribute]);
-
-    //console.log(feature.properties, attValue);
-
+    //create marker from attribute value and radius
     geoJsonMarkerOptions.radius = calcPropRadius(attValue);
-
+    //set the layer where markers will be added
     var layer = L.circleMarker(latlng, geoJsonMarkerOptions);
-
+    //set popup attributes to be added to marker
     var popup = new Popup(feature.properties, attribute, layer, geoJsonMarkerOptions.radius);
-
+    //attach popups to corresponding layer
     popup.bindToLayer();
-
+    //user can click circle marker to open popup
     layer.on({
+        click:function(){
+            this.openPopup();
+        },
+        //user can hover over circle to open popup as well
         mouseover:function(){
             this.openPopup();
         },
-
+        //user will close the popup when their mouse moves off the circle
         mouseout: function(){
             this.closePopup();
         }
     });
-
-    
 
     return layer;
 
@@ -84,7 +83,7 @@ function createPropSymbols(data, mymap, attributes){
 
 //Create sequence controls
 function createSequenceControls(mymap, attributes){
-
+    //extend 
     var SequenceControl = L.Control.extend({
         geoJsonMarkerOptions: {
             positions: 'topright'
@@ -366,7 +365,8 @@ function createPolySymbols(data, mymap, polyAttributes){
         color: "#000",
         weight: 1,
         opacity: 0.5,
-        fillOpacity: 0.2
+        fillOpacity: 0.2,
+        interactive: false
 
     
         
@@ -378,7 +378,6 @@ function createPolySymbols(data, mymap, polyAttributes){
 
     L.control.layers(null, overlay,{collapsed:false}).addTo(mymap);
 
-    counties.bringToBack(mymap);
     
     return mymap
 
