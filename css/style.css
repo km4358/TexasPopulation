@@ -1,7 +1,8 @@
 /*Stylesheet by Kerry C. McAlister, 2018 */
 @font-face {
-    font-family: 'Aller';
-    src: url("/leaflet-lab/fonts");
+    font-family: "Aller";
+    src: url("\leaflet-lab\fonts");
+    
 }
 
 #map {

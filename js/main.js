@@ -1,6 +1,5 @@
 /* Main JS by Kerry C. McAlister, 2018 */
 
-
 // Create Leaflet base map
 function createMap(){
     //set map variable and view
@@ -83,14 +82,14 @@ function createPropSymbols(data, mymap, attributes){
 
 //Create sequence controls
 function createSequenceControls(mymap, attributes){
-    //extend 
+    //extend sequence controls to circle markers
     var SequenceControl = L.Control.extend({
         geoJsonMarkerOptions: {
             positions: 'topright'
         },
 
 
-
+        //create the div for sequence controls and buttons
         onAdd: function(mymap) {
             var container = L.DomUtil.create('div', 'sequence-control-container');
 
@@ -106,12 +105,9 @@ function createSequenceControls(mymap, attributes){
             return container
         }
     });
-
+    //add sequnce controls to map
     mymap.addControl(new SequenceControl());
-
-
-    //$('#panel').append('<input class="range-slider" type="range">');
-
+    //assign intervals to range slider
     $('.range-slider').attr({
         max: 6,
         min: 0,
@@ -123,10 +119,11 @@ function createSequenceControls(mymap, attributes){
     updateLegend(mymap, attributes[0]);
 
 
-    
+    //assign image files to range slider buttons
     $('#reverse').html('<img src="img/if_arrow-left.png">');
     $('#forward').html('<img src="img/if_arrow-right.png">');
 
+    //determine the action taken when slider buttons clicked
     $('.skip').click(function(){
 
         var index = $('.range-slider').val();
@@ -146,13 +143,8 @@ function createSequenceControls(mymap, attributes){
         updatePropSymbols(mymap, attributes[index]);
         updateLegend(mymap, attributes[index]);
         
-
     });
-
-    
-
-    
-
+    //update symbols and legend when buttons clicked
     $('.range-slider').on('input', function(){
 
         var index = $(this).val();
@@ -160,12 +152,8 @@ function createSequenceControls(mymap, attributes){
         updatePropSymbols(mymap, attributes[index]);
         updateLegend(mymap, attributes);
         
-
     });
 
-    
-
-    
 };             
 
 //Process geoJson data
@@ -180,8 +168,6 @@ function processData(data){
             attributes.push(attribute);
         };
     };
-
-    //console.log(attributes);
 
     return attributes;
 };
@@ -198,18 +184,12 @@ function updatePropSymbols(mymap, attribute, updateLegend){
 
             var popup = new Popup(props, attribute, layer, radius);
 
-            
-
             popup.bindToLayer();
-            
-            
  
         };
 
-
     });
 
-    
 };
 
 //Create popup function for points
@@ -230,24 +210,19 @@ function Popup(properties, attribute, layer, radius){
 
 //Activate popups 
 function createPopup(properties, attribute, layer, radius){
-
+    //determine popup content
     var popupContent = "<p><b>MSA:</b> " + properties.NAME + "</p>";
-
+    //derive attribute from data and add to popup
     var year = attribute.split("_")[1];
     popupContent += "<p><b>Population in " + year + ":</b> " + properties[attribute];
-
+    //bind popup to layer
     layer.bindPopup(popupContent, {
         offset: new L.Point(0, -radius),
         
     });
-
-    
-
-    
-
 };
 
-//Create temporal legend ON HOLD
+//Create temporal legend
 function createLegend(mymap, attributes){
     var LegendControl = L.Control.extend({
         options: {
@@ -255,7 +230,7 @@ function createLegend(mymap, attributes){
         },
 
         onAdd: function (mymap) {
-
+            //create temporal legend div 
             var legendContainer = L.DomUtil.create('div', 'legend-control-container');
             var svg = '<svg id="attribute-legend" width="250px" height="125px">';
             var circles = {
@@ -263,7 +238,7 @@ function createLegend(mymap, attributes){
                 mean: 80,
                 min: 110
             };
-
+            //determine circle marker size for temporal legend
             for (var circle in circles){
 
                 svg += svg += '<circle class="legend-circle" id="' + circle +
@@ -273,21 +248,19 @@ function createLegend(mymap, attributes){
             };
 
             svg += "</svg>"
-
+            //append temporal legend to container div
             $(legendContainer).append('<div id="temporal-legend">');
             $(legendContainer).append(svg);
 
             return legendContainer;
         }
     });
-
+    //add legend to map
     mymap.addControl(new LegendControl());
-    updateLegend(mymap, attributes);
-
-
-    
+    updateLegend(mymap, attributes);    
 };
 
+//update legend
 function updateLegend(mymap, attributes){
     
     var year = attributes.split("_")[1];
@@ -307,17 +280,18 @@ function updateLegend(mymap, attributes){
 
             r: radius
         });
-
+        //calculate amount shown on legend
         $('#'+key+'-text').text(Math.round(circleValues[key]) + " People");
     };
 
 
 };
 
+//Calculate circle values to be passed into updateLegend
 function getCircleValues(mymap, attributes){
     var min = Infinity,
         max = -Infinity;
-
+    //help determine min and max values
     mymap.eachLayer(function(layer){
         if(layer.feature){
             var attributeValue = Number(layer.feature.properties[attributes]);
@@ -331,7 +305,7 @@ function getCircleValues(mymap, attributes){
             };
         };
     });
-
+    //calculate mean
     var mean = (max + min)/2;
 
     return {
@@ -342,11 +316,12 @@ function getCircleValues(mymap, attributes){
 
 };
 
+//process polygon data from geoJSON
 function processPolyData(data){
     var polyAttributes = [];
 
     var polyProperties = data.features[0].polyProperties;
-
+    //check polygon attributes to determine validity
     for (var polyAttribute in polyProperties){
         if (polyAttribute.indexOf("Perc")> -1){
             polyAttributes.push(polyAttribute);
@@ -356,48 +331,41 @@ function processPolyData(data){
     return polyAttributes
 };
 
+//create symbology for polygon symbols
 function createPolySymbols(data, mymap, polyAttributes){
     L.geoJson(data, {
         });
-
+    //assign symbology values for polygons 
     var counties = L.geoJson(data, {
         fillColor: "#bf5700",
         color: "#000",
         weight: 1,
         opacity: 0.5,
         fillOpacity: 0.2,
-        interactive: false
-
-    
-        
+        interactive: false        
     });
-
+    //assign polygon layer to overlay variable
     var overlay = {
         "MSA Boundaries": counties
     };
-
+    //assign control to overlay with the county layer closed when loading the map
     L.control.layers(null, overlay,{collapsed:false}).addTo(mymap);
 
-    
     return mymap
-
 };
 
 //Collect data from geoJSON
 function getData(mymap){
-
-    
-
+    //load polygon geoJSON
     $.ajax("data/MSA_Poly.geojson", {
         dataType: "json",
         success: function(response){
 
             var polyAttributes = processPolyData(response);
             createPolySymbols(response, mymap, polyAttributes);
-            
         }
     });
-
+    //load point geoJSON
     $.ajax("data/MSA.geojson", {
         dataType: "json",
         success: function(response){
@@ -410,5 +378,5 @@ function getData(mymap){
         }        
     });
 };
-
+//create map
 $(document).ready(createMap);
