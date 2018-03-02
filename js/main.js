@@ -12,6 +12,9 @@ function createMap(){
     tileLayer.addTo(mymap);   
     //call for geoJSON data to be added - function is later in code
     getData(mymap);
+    $(document).click(function(){
+        $(".welcomeWin").hide();
+    });
 };
 
 //Create marker and load attributes into popup window

@@ -12,6 +12,47 @@ body, html {
     background-color: #bf5700;
 }
 
+.welcomeWin{
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 40%;
+    z-index: 1000;
+    margin-left: 10px;
+    background-color: rgba(255,255,255,0.8);
+    fill-opacity: 0.8;
+    border-radius: 0;
+    outline: solid gray 1px;
+}
+
+/*#welcome{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 40%;
+    z-index: 1000;
+}*/
+
+p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+}
+
+p:last-child{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 0;
+}
+
+.strong, strong{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+}
+
+
+
 #attribute-legend{
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -20,7 +61,7 @@ body, html {
 #temporal-legend{
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 .leaflet-control-layers {
