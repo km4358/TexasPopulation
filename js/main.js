@@ -52,6 +52,8 @@ function pointToLayer(feature, latlng, attributes){
         }
     });
 
+    
+
     return layer;
 
 };
@@ -76,6 +78,8 @@ function createPropSymbols(data, mymap, attributes){
             return pointToLayer(feature, latlng, attributes);
         }
     }).addTo(mymap);
+
+
 };
 
 //Create sequence controls
@@ -198,6 +202,7 @@ function updatePropSymbols(mymap, attribute, updateLegend){
             
 
             popup.bindToLayer();
+            
             
  
         };
@@ -372,6 +377,9 @@ function createPolySymbols(data, mymap, polyAttributes){
     };
 
     L.control.layers(null, overlay,{collapsed:false}).addTo(mymap);
+
+    counties.bringToBack(mymap);
+    
     return mymap
 
 };
