@@ -27,15 +27,6 @@ body, html {
     outline: solid gray 1px;
 }
 
-/*#welcome{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    width: 40%;
-    z-index: 1000;
-}*/
-
 p {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 15px;
