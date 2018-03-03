@@ -233,7 +233,7 @@ function createPopup(properties, attribute, layer, radius){
 function createLegend(mymap, attributes){
     var LegendControl = L.Control.extend({
         options: {
-            position: 'bottomright'
+            position: 'topright'
         },
 
         onAdd: function (mymap) {
