@@ -272,7 +272,8 @@ function updateLegend(mymap, attributes){
     
     var year = attributes.split("_")[1];
 
-    var content = "<p><b>Population in " + year + "</b> ";
+var content = "<p><b>Population in " + year + "</b>\
+    <p>(Maximum, mean, and minimum population below)</p>";
 
     $('#temporal-legend').html(content);
 
