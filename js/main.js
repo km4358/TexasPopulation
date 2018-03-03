@@ -273,7 +273,8 @@ function updateLegend(mymap, attributes){
     var year = attributes.split("_")[1];
 
 var content = "<p><b>Population in " + year + "</b>\
-    <p>(Maximum, mean, and minimum population below)</p>";
+    <p>(Maximum, mean, and minimum population below)</p>\
+    <p>Rounded to nearest 10,000";
 
     $('#temporal-legend').html(content);
 
@@ -289,7 +290,7 @@ var content = "<p><b>Population in " + year + "</b>\
             r: radius
         });
         //calculate amount shown on legend
-        $('#'+key+'-text').text(Math.round(circleValues[key]) + " People");
+        $('#'+key+'-text').text(Math.round(circleValues[key]/10000)*10000 + " People");
     };
 
 
