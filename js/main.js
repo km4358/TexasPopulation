@@ -118,6 +118,8 @@ function createSequenceControls(mymap, attributes){
         step: 1
     });
 
+    $('.range-slider').on
+
     createLegend(mymap, attributes[1]);
     updateLegend(mymap, attributes[0]);
 
@@ -125,6 +127,8 @@ function createSequenceControls(mymap, attributes){
     //assign image files to range slider buttons
     $('#reverse').html('<img src="img/if_arrow-left.png">');
     $('#forward').html('<img src="img/if_arrow-right.png">');
+
+    
 
     //determine the action taken when slider buttons clicked
     $('.skip').click(function(){
@@ -153,7 +157,7 @@ function createSequenceControls(mymap, attributes){
         var index = $(this).val();
 
         updatePropSymbols(mymap, attributes[index]);
-        updateLegend(mymap, attributes);
+        updateLegend(mymap, attributes[index]);
         
     });
 
