@@ -23,11 +23,11 @@ function pointToLayer(feature, latlng, attributes){
 
     //Marker options below...
     var geoJsonMarkerOptions = {
-        fillColor: "#bf5700",
+        fillColor: "#006FFF",
         color: "#000",
         weight: 1,
         opacity: 1,
-        fillOpacity: 0.8
+        fillOpacity: 0.5
                
     };
     //set attribute value variable
@@ -245,7 +245,7 @@ function createLegend(mymap, attributes){
             for (var circle in circles){
 
                 svg += svg += '<circle class="legend-circle" id="' + circle +
-                '" fill="#bf5700" fill-opacity="0.8" stroke="#000000" cx="60"/>';
+                '" fill="#006FFF" fill-opacity="0.5" stroke="#000000" cx="60"/>';
 
                 svg += '<text id="' + circle + '-text" x="120" y="' + circles[circle] + '"></text>';
             };
