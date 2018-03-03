@@ -57,6 +57,7 @@ p:last-child{
 
 .leaflet-control-layers {
     position: relative;
+    font-weight: bold;
     background-color: rgba(255,255,255,0.8);
     fill-opacity: 0.8;
     border-radius: 0;

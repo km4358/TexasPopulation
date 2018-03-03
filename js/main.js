@@ -353,7 +353,7 @@ function createPolySymbols(data, mymap, polyAttributes){
     });
     //assign polygon layer to overlay variable
     var overlay = {
-        "MSA Boundaries": counties
+        "Click to turn on MSA Boundaries": counties
     };
     //assign control to overlay with the county layer closed when loading the map
     L.control.layers(null, overlay,{collapsed:false}).addTo(mymap);
